@@ -4,6 +4,11 @@
 
 // This function shows and hides the shot selection in the interface based 
 // on whether or not the #opponent checkbox is checked
+
+var formShow = true;
+var resultShow = false;
+
+
 function showHideShots() {
 // Get the info from the checkbox
   	let check = document.getElementById('opponent');
@@ -69,4 +74,35 @@ function showRules() {
 function hideRules() {
 	$('.game').show();
 	$('.rulesPg').hide();
+}
+
+function formToggle() {
+	if (formShow){
+		$('#userinput').hide();
+		formShow = false;
+	}else{
+		$('userinput').show();
+		$('#play').show();
+		$('#startover').show();
+		$('#showRules').show();
+		formShow = true;
+	}
+}
+
+function resultsToggle() {
+	if (resultShow) {
+		$('#results') .hide();
+		$('#opponentImg').attr('src', 'img/rock.jpg);
+		$('#opponentImg').attr('alt', 'ROCK');
+		$('.opponentResult').hide();
+		$('#playerImg').attr('src', 'img/rock.jpg');
+		$('#playerImg').attr('alt', 'ROCK');
+		let gameResult = document.getElementById('gameResult');
+		gameResult.innerHTML = "";
+		$('gameResult').hide();
+		resultShow = false;
+	}else {
+		$('#results').show();
+		resultsShow = true;
+	}
 }

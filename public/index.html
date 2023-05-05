@@ -32,16 +32,15 @@
 	</form>
 	<div id="results" style="display: none;">
 		<h1 class="opponentResult" style="display: none;">OPPONENT</h1>
-		<img src="img/rock.jpg" class="opponentResult" id="opponentImg" style="display: none;">
+		<img src="img/rock.jpg" alt="ROCK" class="opponentResult" id="opponentImg" style="display: none;">
 		<h1 class="playerResult">Player</h1>
-		<img src="img/rock.jpg" class="playerResult" id="playerImg">
+		<img src="img/rock.jpg" alt="ROCK" class="playerResult" id="playerImg">
 		<h1 id="gameResult" style="display: none:"></h1>
 	</div>
 	<br/><br/>
 <button type="button" id="play" onclick="playGame()">Play</button>
 <button type="button" id="startover" onclick="startOver()">Startover</button>
 <button type="button" id="showRules" onclick="showRules()">Rules</button>
-<button type="button" id="hideRules" onclick="hideRules()">Hide Rules</button>
 <div class="rulesPg" style="display: none;">
 	<h3>Rules for RPS:</h3>
 	<ul>
@@ -62,6 +61,8 @@
                 <li>Spock VAPORIZES Rock</li>
                 <li>Rock CRUSHES Scissors</li>
 	</ul>
+	<br></br>
+	<button type="button" id="hideRules" onclick="hideRules()">Hide Rules</button>
 </div>
     <!-- Your interface markup goes here -->
     <!-- For interface examples, look in the `/examples/` directory in the root of your starter code repo. -->
