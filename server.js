@@ -71,6 +71,62 @@ app.use(morgan(':remote-addr - :remote-user [:date[iso]] ":method :url HTTP/:htt
 // Serve static files
 const staticpath = args.stat || args.s || process.env.STATICPATH || path.join(__dirname, 'public')
 app.use('/', express.static(staticpath))
+
+import {rps, rpsls} from './lib/rpsls.js';
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+//check /app endpoint
+app.get('/app/', (req, res) => {
+	res.status(200).send('200 OK');
+});
+
+//check ednpoint /app/rps/, returns {"player":"(rock|paper|scissors)"}
+app.get('/app/rps/', (req, res) => {
+	res.status(200).send(rps());
+});
+
+//check endpoint /app/rpsls/, returns "player":"(rock|paper|scissors|lizard|spock)"}
+app.get('/app/rpsls/', (req, res) => {
+	res.status(200).send(rpsls());
+});
+
+// check endpoint /app/rps/play/ (URLEncoded)
+app.get('/app/rps/play/', (req, res) => {
+	res.status(200).send(rps(req.query.shot));
+});
+
+// check endpoint /app/rps/play/ (JSON)
+app.post('/app/rps/play/', (req, res) => {
+	res.status(200).send(rps(req.body.shot));
+});
+
+//check endpoint /app/rpsls/play (URLEncoded)
+app.get('/app/rpsls/play/', (req, res) => {
+	res.status(200).send(rpsls(req.query.shot));
+});
+
+//check endpoint /app/rpsls/play/ (JSON)
+app.post('/app/rpsls/play/', (req, res) => {
+	res.status(200).send(rpsls(req.body.shot));
+});
+
+//check endpoint /app/rps/play/(rock|paper|scissors)/
+app.get('/app/rps/play/:shot', (req, res) => {
+	res.status(200).send(rps(req.params.shot));
+});
+
+//check endpoint /app/rpsls/play/(rock|paper|scissors|lizard|spock)/
+app.get('/app/rpsls/play/:shot', (req, res) => {
+	res.status(200).send(rpsls(req.params.shot));
+});
+
+//default endpoint
+app.get('*', (req, res) => {
+	res.status(404).send('404 NOT FOUND');
+});
+
 // Create app listener
 const server = app.listen(port)
 // Create a log entry on start
