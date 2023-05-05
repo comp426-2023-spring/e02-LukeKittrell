@@ -28,6 +28,10 @@ function showHideShots() {
 function startOver () {
 	document.getElementById('userinput').reset();
 	showHideShots();
+	if (resultShow) {
+		formShow();
+		resultShow();
+	}
 }
 
 async function playGame () {
@@ -64,6 +68,12 @@ async function playGame () {
 		gameResult.innerHTML = result.result.toUpperCase();
 		$('#gameResult').show();
 	}
+
+	$('#play').hide();
+	$('#startover').hide();
+	$('#showRules').hide();
+	formShow();
+	resultShow();
 }
 
 function showRules() {
@@ -75,7 +85,7 @@ function hideRules() {
 	$('.game').show();
 	$('.rulesPg').hide();
 }
-
+//toggles the base form
 function formToggle() {
 	if (formShow){
 		$('#userinput').hide();
@@ -88,7 +98,7 @@ function formToggle() {
 		formShow = true;
 	}
 }
-
+//toggles the result page
 function resultsToggle() {
 	if (resultShow) {
 		$('#results') .hide();
