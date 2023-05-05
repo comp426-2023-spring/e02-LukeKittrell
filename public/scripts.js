@@ -60,3 +60,13 @@ async function playGame () {
 		$('#gameResult').show();
 	}
 }
+
+function showRules() {
+	$('.game').hide();
+	$('.rulesPg').show();
+}
+
+function hideRules() {
+	$('.game').show();
+	$('.rulesPg').hide();
+}
