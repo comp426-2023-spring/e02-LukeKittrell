@@ -7,13 +7,13 @@
 function showHideShots() {
 // Get the info from the checkbox
   	let check = document.getElementById('opponent');
+	let game = $('input[type=radio][name=game]:checked').val();
 // Check if the checkbox is checked and show or hide options accordingly
 	if (check.checked == true) {
-// Here, instead of just showing all of the options, use similar logic to 
-// check which of the game radio buttons is checked and show only those
-// options relevant to the game being selected (rps or rpsls). You can 
-// use similar jQuery 
 		$('.shots').show()
+		if (game == 'rps'){
+			$('.rpsls').hide()
+		}
 	} else {
 		$('.shots').hide()
 	}
@@ -28,8 +28,6 @@ function startOver () {
 async function playGame () {
 	// Get which game is being played based on the value in the form
 	let game = $('input[type=radio][name=game]:checked').val();
-	// Get which shot is being played based on the value in the form
-	let shot = $('input[type=radio][name=shot]:checked').val();
 	// Identify the base URL based on browser information
 	let baseurl = window.location.href + 'app/'
 	console.log(baseurl)
@@ -41,10 +39,24 @@ async function playGame () {
 	let url = baseurl + game + '/play/' + shot
 	console.log(url)	
 
+	let checkbox = document.getElementById('opponent');
+	if(checkbox.checked){
+		let shot = $('input[type=radio][name=shot]:checked').val();
+		url = url + shot
+	}
+
 	let response = await fetch(url)
 	let result = await response.json()
 	console.log(result)
-	// Here you should include code that uses the DOM API or jQuery to 
-	// manipulate another block of HTML in the interface to display the 
-	// results in some way. 
+
+	if (result.opponent) {
+		$('#opponentImg').attr('src', 'img/' + result.opponent + '.jpg');
+		$('.opponentResult').show();
+	}
+	$('#playImg').attr('src', 'img/' + result.player + '.jpg');
+	if ( result.result){
+		let game_result = document.getElementById('gameResult');
+		gameResult.innerHTML = result.result.toUpperCase();
+		$('#gameResult').show();
+	}
 }
